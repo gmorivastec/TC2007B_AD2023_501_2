@@ -1,5 +1,7 @@
 package mx.tec.navegacionyconstraint
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navegacion()
+                    Navegacion(this)
                 }
             }
         }
@@ -121,7 +123,7 @@ fun MainMenu(
 }
 
 @Composable
-fun Navegacion() {
+fun Navegacion(activity: Activity) {
     // este va a ser el administrador principal de mis vistas
     // necesitamos declarar un controller primero
     // controller es el objeto que tiene la lógica para el intercambio
@@ -167,6 +169,15 @@ fun Navegacion() {
                         .currentBackStackEntry
                         ?.savedStateHandle
                         ?.remove<String>("nombreDePerrito")
+                }
+
+                Button(
+                    onClick = {
+                        val intent = Intent(activity, ConstraintLayoutActivity::class.java)
+                        activity.startActivity(intent)
+                    }
+                ){
+                    Text("Constraint Layout Example")
                 }
             }
         }
